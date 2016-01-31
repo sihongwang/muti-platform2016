@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.wsh.2016platform.zookeeper</groupId>
+  <artifactId>p1zookeeper</artifactId>
+  <!--<packaging>pom</packaging>-->
+  <version>1.0</version>
+  <name>p1zookeeper</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+	<java-version>1.8</java-version>
+	<org.springframework-version>4.2.4.RELEASE</org.springframework-version>
+	<org.aspectj-version>1.6.10</org.aspectj-version>
+	<org.slf4j-version>1.7.13</org.slf4j-version>
+	<log4j-version>1.2.17</log4j-version> 
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <repositories>
+	<repository>  
+	      <id>able-repo</id>  
+	      <name>able repository</name>  
+	      <url>http://192.168.9.206:8081/nexus/content/repositories/releases/</url>  
+	      <releases><enabled>true</enabled></releases>  
+	      <snapshots><enabled>true</enabled></snapshots>  
+	</repository>
+	<repository>
+		<id>zhihuishu-releases</id>
+		<name>maven.i.zhihuishu.com releases Repository</name>
+		<url>http://maven.i.zhihuishu.com:8081/nexus/content/repositories/releases/</url>
+	</repository>
+	<repository>
+		<id>zhihuishu-thirdparty</id>
+		<name>maven.i.zhihuishu.com thirdparty Repository</name>
+		<url>http://maven.i.zhihuishu.com:8081/nexus/content/repositories/thirdparty</url>
+	</repository>
+	<repository>
+        <id>io.spring.repo.maven.release</id>
+        <url>http://repo.spring.io/release/</url>
+        <snapshots><enabled>false</enabled></snapshots>
+    </repository>
+	<repository>
+        <id>io.spring.repo.maven.snapshot</id>
+        <url>http://repo.spring.io/snapshot/</url>
+        <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
+
+   <!-- You can import the spring-framework-bom in your dependencyManagement section to ensure that all spring dependencies (both direct and transitive) are at the same version. (参看http://docs.spring.io/spring/docs/4.3.0.BUILD-SNAPSHOT/spring-framework-reference/htmlsingle/#dependency-management)
+ 通过spring-framework-bom批量指定org.springframework版本号，之后引入的jar包就不用再指定版本号
+ -->
+  <dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-framework-bom</artifactId>
+            <version>${org.springframework-version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+ </dependencyManagement>
+
+  <dependencies>
+	<!--http://docs.spring.io/spring/docs/4.3.0.BUILD-SNAPSHOT/spring-framework-reference/htmlsingle/#dependency-management
+GroupId					ArtifactId					Description
+org.springframework		spring-aop					Proxy-based AOP support
+org.springframework		spring-aspects				AspectJ based aspects
+org.springframework		spring-beans				Beans support, including Groovy
+org.springframework		spring-context				Application context runtime, including scheduling and remoting abstractions
+org.springframework		spring-context-support		Support classes for integrating common third-party libraries into a Spring application context
+org.springframework		spring-core					Core utilities, used by many other Spring modules
+org.springframework		spring-expression			Spring Expression Language (SpEL)
+org.springframework		spring-instrument			Instrumentation agent for JVM bootstrapping
+org.springframework		spring-instrument-tomcat	Instrumentation agent for Tomcat
+org.springframework		spring-jdbc					JDBC support package, including DataSource setup and JDBC access support
+org.springframework		spring-jms					JMS support package, including helper classes to send and receive JMS messages
+org.springframework		spring-messaging			Support for messaging architectures and protocols
+org.springframework		spring-orm					Object/Relational Mapping, including JPA and Hibernate support
+org.springframework		spring-oxm					Object/XML Mapping
+org.springframework		spring-test					Support for unit testing and integration testing Spring components
+org.springframework		spring-tx					Transaction infrastructure, including DAO support and JCA integration
+org.springframework		spring-web					Web support packages, including client and web remoting
+org.springframework		spring-webmvc				REST Web Services and model-view-controller implementation for web applications
+org.springframework		spring-webmvc-portlet		MVC implementation to be used in a Portlet environment
+org.springframework		spring-websocket			WebSocket and SockJS implementations, including STOMP support
+	-->
+	<!-- springframework-->
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+    </dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+    </dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+    </dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+    </dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+	</dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <!-- <version>4.3.0.BUILD-SNAPSHOT</version> -->
+        <exclusions>
+            <exclusion>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-expression</artifactId>
+    </dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+	</dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jms</artifactId>
+    </dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+    </dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+    </dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-websocket</artifactId>
+	</dependency>
+	
+	<!-- Logging -->
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>${org.slf4j-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+		<version>${org.slf4j-version}</version>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>${org.slf4j-version}</version>
+		<scope>runtime</scope>
+	</dependency>
+    <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j-version}</version>
+    </dependency>
+
+	<!-- mysql -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.6</version>
+	</dependency>
+	<!-- mybatis -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>3.3.0</version>
+	</dependency>
+	<!-- mybatis generator-->
+	<dependency>
+	  <groupId>org.mybatis.generator</groupId>
+	  <artifactId>mybatis-generator-core</artifactId>
+	  <version>1.3.2</version>
+	</dependency>
+
+
+	<!-- dubbo -->
+	<dependency>
+		<groupId>dubbo</groupId>
+		<artifactId>dubbo</artifactId>
+		<version>2.5.3</version>
+	</dependency>
+	<dependency>
+	  <groupId>javassist</groupId>
+	  <artifactId>javassist</artifactId>
+	  <version>3.15.0-GA</version>
+	  <classifier>GA</classifier>
+	</dependency>
+	<dependency>
+		<groupId>jline</groupId>
+		<artifactId>jline</artifactId>
+		<version>0.9.94</version>
+	</dependency>
+	<dependency>
+		<groupId>netty</groupId>
+		<artifactId>netty</artifactId>
+		<version>3.2.5.Final</version>
+	</dependency>
+	<dependency>
+		<groupId>com.101tec</groupId>
+		<artifactId>zkclient</artifactId>
+		<version>0.7</version>
+	</dependency>
+	<dependency>
+		<groupId>zookeeper</groupId>
+		<artifactId>zookeeper</artifactId>
+		<version>3.3.1</version>
+	</dependency>
+	
+	<!-- junit-->
+	<dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+	
+  </dependencies>
+
+  
+  <distributionManagement>
+	<!-- use the following if you're not using a snapshot version. -->
+	<repository>
+		<id>releases</id>
+		<name>RepositoryProxyRel</name>
+		<url>http://192.168.9.206:8081/nexus/content/repositories/releases</url>
+	</repository>
+	<snapshotRepository>
+	    <id>snapshots</id>
+	    <url>http://192.168.9.206:8081/nexus/content/repositories/snapshots</url>
+	</snapshotRepository>
+  </distributionManagement>
+  
+ 
+</project>
