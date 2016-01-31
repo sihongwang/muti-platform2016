@@ -47,8 +47,8 @@
     </repository>
   </repositories>
 
-   <!-- You can import the spring-framework-bom in your dependencyManagement section to ensure that all spring dependencies (both direct and transitive) are at the same version. (参看http://docs.spring.io/spring/docs/4.3.0.BUILD-SNAPSHOT/spring-framework-reference/htmlsingle/#dependency-management)
- 通过spring-framework-bom批量指定org.springframework版本号，之后引入的jar包就不用再指定版本号
+   <!-- You can import the spring-framework-bom in your dependencyManagement section to ensure that all spring dependencies (both direct and transitive) are at the same version. (鍙傜湅http://docs.spring.io/spring/docs/4.3.0.BUILD-SNAPSHOT/spring-framework-reference/htmlsingle/#dependency-management)
+ 閫氳繃spring-framework-bom鎵归噺鎸囧畾org.springframework鐗堟湰鍙凤紝涔嬪悗寮曞叆鐨刯ar鍖呭氨涓嶇敤鍐嶆寚瀹氱増鏈彿
  -->
   <dependencyManagement>
     <dependencies>
@@ -247,6 +247,17 @@ org.springframework		spring-websocket			WebSocket and SockJS implementations, in
 	    <url>http://192.168.9.206:8081/nexus/content/repositories/snapshots</url>
 	</snapshotRepository>
   </distributionManagement>
-  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+  </build>
  
 </project>
