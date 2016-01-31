@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+  <script src="https://cdn.wilddog.com/js/vendor/jquery-1.11.2.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://www.wilddog.com/examples/demo-chat/chat.css">
+</head>
+<body>
+
+<!-- CHAT MARKUP -->
+<div class="example-chat">
+  <header>简单聊天demo</header>
+
+  <div class='example-chat-toolbar'>
+    <input type='text' id='nameInput' placeholder='输入一个用户名...'>
+  </div>
+
+  <ul id='example-messages' class="example-chat-messages"></ul>
+
+  <footer>
+    <input type='text' id='messageInput'  placeholder='输入一条消息...'>
+  </footer>
+</div>
+
+<!-- CHAT JAVACRIPT -->
+<script>
+  // 创建一个Wilddog 对象https://wangsihong.wilddogio.com/
+  var messagesRef = new Wilddog('https://wangsihong.wilddogio.com/demos/demo-chat');
+
+  // REGISTER
+  var messageField = $('#messageInput');
+  var nameField = $('#nameInput');
+  var messageList = $('#example-messages');
+
+  // 监听键盘事件
+  messageField.keypress(function (e) {
+    if (e.keyCode == 13) {
+      //获取数据
+      var username = nameField.val();
+      var message = messageField.val();
+
+      //把数据保存到Wilddog，并同步到云端
+      messagesRef.push({name:username, text:message});
+      messageField.val('');
+    }
+  });
+
+  // 每来一条消息都触发回调函数
+  messagesRef.limitToLast(10).on('child_added', function (snapshot) {
+    //获取数据
+    var data = snapshot.val();
+    var username = data.name || "anonymous";
+    var message = data.text;
+
+    //操作DOM
+    var messageElement = $("<li>");
+    var nameElement = $("<strong class='example-chat-username'></strong>")
+    nameElement.text(username+" : ");
+    messageElement.text(message).prepend(nameElement);
+
+    //把这条消息加到列表底部
+    messageList.append(messageElement)
+    messageList[0].scrollTop = messageList[0].scrollHeight;
+  });
+</script>
+</body>
+</html>
